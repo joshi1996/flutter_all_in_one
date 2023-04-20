@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: any
   flutter_svg: any
   motion_tab_bar_v2: any
+  routemaster: any
 
 dev_dependencies:
   flutter_test:

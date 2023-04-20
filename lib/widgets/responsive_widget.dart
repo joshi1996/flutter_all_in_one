@@ -17,7 +17,7 @@ class ResponsiveWidget extends StatelessWidget {
     if (SizeConfig.isPortrait && SizeConfig.isMobilePortrait) {
       return portraitLayout;
     } else {
-      return landscapeLayout ?? portraitLayout;
+      return landscapeLayout;
     }
   }
 }

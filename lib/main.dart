@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:routemaster/routemaster.dart';
 
 import 'utils/app_constants.dart';
+import 'utils/cupertino_routes.dart';
 import 'utils/page_name.dart';
 import 'utils/preference.dart';
 import 'utils/routes.dart';
@@ -25,7 +27,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     super.initState();
@@ -39,14 +40,16 @@ class _MyAppState extends State<MyApp> {
         return OrientationBuilder(
           builder: (context, orientation) {
             SizeConfig().init(constraints, orientation);
-            return MaterialApp(
+            return MaterialApp.router(
               title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              onGenerateRoute: controller,
-              initialRoute: PageNameConstants.splashScreen,
+              routerDelegate: RoutemasterDelegate(routesBuilder: (_) => routes),
+              routeInformationParser: RoutemasterParser(),
+              // onGenerateRoute: controller,
+              // initialRoute: PageNameConstants.splashScreen,
             );
           },
         );
@@ -59,16 +62,20 @@ class _MyAppState extends State<MyApp> {
     try {
       if (Platform.isAndroid) {
         var androidInfo = await deviceInfoPlugin.androidInfo;
-        Preference.setString(AppConstants.imeiNo, androidInfo.androidId.toString());
-        Preference.setString(AppConstants.platformVersion, androidInfo.version.release);
+        Preference.setString(
+            AppConstants.imeiNo, androidInfo.androidId.toString());
+        Preference.setString(
+            AppConstants.platformVersion, androidInfo.version.release);
         Preference.setString(AppConstants.modelName, androidInfo.model);
         Preference.setString(AppConstants.deviceName, androidInfo.device);
         Preference.setString(AppConstants.productName, androidInfo.product);
         Preference.setString(AppConstants.cpuType, "A");
       } else if (Platform.isIOS) {
         var iosInfo = await deviceInfoPlugin.iosInfo;
-        Preference.setString(AppConstants.imeiNo, iosInfo.identifierForVendor.toString());
-        Preference.setString(AppConstants.platformVersion, iosInfo.systemVersion.toString());
+        Preference.setString(
+            AppConstants.imeiNo, iosInfo.identifierForVendor.toString());
+        Preference.setString(
+            AppConstants.platformVersion, iosInfo.systemVersion.toString());
         Preference.setString(AppConstants.modelName, iosInfo.model);
         Preference.setString(AppConstants.deviceName, iosInfo.systemName);
         Preference.setString(AppConstants.productName, iosInfo.localizedModel);

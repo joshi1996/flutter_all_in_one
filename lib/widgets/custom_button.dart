@@ -7,11 +7,7 @@ import 'size_config.dart';
 class MntSoButton extends StatelessWidget {
   final String text;
   final double fontSize;
-  MntSoButton({
-    key,
-    required this.text,
-    required this.fontSize
-  });
+  MntSoButton({key, required this.text, required this.fontSize});
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +16,21 @@ class MntSoButton extends StatelessWidget {
       height: 6 * (SizeConfig.heightMultiplier)!,
       width: 70 * (SizeConfig.widthMultiplier)!,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [
-            AppColor.primaryColor,
-            AppColor.secondaryColor,
-          ],
-        ),
-        borderRadius: BorderRadius.circular(1.5 * (SizeConfig.heightMultiplier)!)
-      ),
-      child: MntSoText(text: text, size: fontSize, color: AppColor.white, fontWeight: AppFontWeight.weight600),
+          gradient: const LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              AppColor.primaryColor,
+              AppColor.secondaryColor,
+            ],
+          ),
+          borderRadius:
+              BorderRadius.circular(1.5 * (SizeConfig.heightMultiplier)!)),
+      child: MntSoText(
+          text: text,
+          size: fontSize,
+          color: AppColor.white,
+          fontWeight: AppFontWeight.weight600),
     );
   }
 }
